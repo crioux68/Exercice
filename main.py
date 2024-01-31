@@ -71,9 +71,15 @@ while True:
     if event == sg.WIN_CLOSED or event == 'Annuler': # if user closes window or clicks cancel
         break
     if event == '-PLAY-':
-        TextToSpeech(values['-textATraduire-'], DetecterLangue(values['-textATraduire-']))
+        if(values['-textATraduire-'] == ""):
+            sg.Popup("Aucun texte")
+        else:
+            TextToSpeech(values['-textATraduire-'], DetecterLangue(values['-textATraduire-']))
     elif event == "-PLAY2-":
-        TextToSpeech(values['-textTraduire-'], values['some_key'][0:2])
+        if(values['-textATraduire-'] == ""):
+            sg.Popup("Aucun texte")
+        else:
+            TextToSpeech(values['-textTraduire-'], values['some_key'][0:2])
     elif event == "Convertir":
         textATraduire =values["-textATraduire-"]
         test = values["some_key"]
