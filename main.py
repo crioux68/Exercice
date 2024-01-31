@@ -39,10 +39,10 @@ sg.theme('DarkAmber')   # Add a touch of color
 layout = [  [sg.Text('Application de Traduction et Text to Speech')],
             [sg.Text('')],
             [sg.Text('Écrire le texte à traduire'), sg.Multiline(size = (40, 20), key='-textATraduire-'),sg.Multiline(size = (40, 20),key='-textTraduire-', disabled=True)],
-            [sg.Text(' '*50), sg.Button(image_data=play, key='-PLAY-', button_color=sg.theme_background_color(), border_width=5),sg.Text(' '*50), sg.Button('Traduite',image_data=play, key='-PLAY2-',  button_color=sg.theme_background_color(), border_width=5)],
+            [sg.Text(' '*50), sg.Button(image_data=play, key='-PLAY-', button_color=sg.theme_background_color(), border_width=5),sg.Text(' '*50), sg.Button(image_data=play, key='-PLAY2-',  button_color=sg.theme_background_color(), border_width=5)],
             [sg.Text('Sélectionner la langue   '), sg.Combo(newList, enable_events=True, key='some_key', size=(85, 10))],  # there must be items
             [sg.Text('')],
-            [sg.Button('Convertir'), sg.Button('Annuler')] ]
+            [sg.Button('Traduire'), sg.Button('Annuler')] ]
 
 # Create the Window
 window = sg.Window('Application de Traduction et Text to Speech ', layout, resizable=True)
@@ -80,13 +80,16 @@ while True:
             sg.Popup("Aucun texte")
         else:
             TextToSpeech(values['-textTraduire-'], values['some_key'][0:2])
-    elif event == "Convertir":
+    elif event == "Traduire":
         textATraduire =values["-textATraduire-"]
         test = values["some_key"]
         test = test.split(":")
         langue = test[0]
         if(langue == ""):
             sg.Popup("selectionner une langue")
+
+        elif(values['-textATraduire-'] == ""):
+            sg.Popup("entrez du texte a traduire")
         else:
             textTraduit = Traduction(textATraduire,langue)
             window['-textTraduire-'].update(textTraduit)
