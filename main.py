@@ -30,7 +30,8 @@ newList = []
 
 for key,values in list.items():
     newList.append((key + ": " + values))
-
+# Pour enlever le mandatrin qui marche pas
+newList.pop(-1)
 play = b'iVBORw0KGgoAAAANSUhEUgAAADIAAAAyCAYAAAAeP4ixAAAABmJLR0QA/wD/AP+gvaeTAAAByElEQVRoge3ZMWsUQRjG8Z8RFSKCgoJp0qSJjVpoZ2clkk8g5CtYpU+TD5DSUkvbVCFNYiM2dhZqY6GFQooEISGai8Xu4HgmcnM3c+su+4fj2L2dmedhb+Z95x16enp6hljBxaZF5OAE7/GoaSGTchJ9tnCrWTnjE0zs19+HWMPlJkWNQzAyh2c4rq+/YBnnmpOWRjASuIfX0f0d3GlAVzLDRmBG9Ta+1r8d4wVuTFdaGqcZCVzFOn7Uz+ziKc5PR1oa/zISWMRm9OxbPCisK5lRjASW8Clqs4H5MrLSSTECs1jFQd3ue319KbewVFKNBBbwMmr/EY8z6kpmXCOBh3gX9dNYdjCpEbigWs326r6OVKvdlQn7TSKHkcCcKt4MNJAd5DQSuI83Ud87uJ15jL8oYYTf2cE3f2YH1wuMhXJGAtdU8+WnwtlBaSOBu3gVjZc9O5iWEapJ/wSf6zEHeI6bZzWYmY6u/4v+rzUirZ/snVh+hwPitpYFxNanKJ1IGk9L4xcz6Eom18bqg5ZtrDqx1Y2LDwPVG2lV8aH15aDWF+jOKpkWi8o5GKWIXTwq56BzxwqdOejpxNFbJw5DO3M83dPT02J+AbN50HbYDxzCAAAAAElFTkSuQmCC'
 
 sg.theme('DarkAmber')   # Add a touch of color
@@ -69,9 +70,15 @@ while True:
     event, values = window.read()
     if event == sg.WIN_CLOSED or event == 'Annuler': # if user closes window or clicks cancel
         break
+    if event == '-PLAY-':
+        TextToSpeech(values['-textATraduire-'], DetecterLangue(values['-textATraduire-']))
+    elif event == "-PLAY2-":
+        TextToSpeech(values['-textTraduire-'], values['some_key'][0:2])
     elif event == "Convertir":
         textATraduire =values["-textATraduire-"]
-        langue = values["some_key"][0:2]
+        test = values["some_key"]
+        test = test.split(":")
+        langue = test[0]
         if(langue == ""):
             sg.Popup("selectionner une langue")
         else:
