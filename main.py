@@ -7,12 +7,23 @@
 
 import PySimpleGUI as sg
 
+# Module avec la bonne version de Playsound a installer
+# >> pip install playsound==1.2.2
+from playsound import playsound
+
 from gtts import gTTS, lang
+import os
 from langdetect import detect
 from deep_translator import GoogleTranslator
 
 langues = lang.tts_langs()
 keys = lang.tts_langs().keys
+
+def TextToSpeech(input, langue):
+    tts = gTTS(input, lang=langue)
+    tts.save('hello.mp3')
+    playsound('hello.mp3')
+    os.remove('hello.mp3')
 
 list = langues
 newList = []
